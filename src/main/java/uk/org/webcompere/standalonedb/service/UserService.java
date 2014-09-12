@@ -10,17 +10,33 @@ import java.util.List;
 public interface UserService {
     /**
      * Provide all users
-     * @return
+     * @return list of all users
      */
     List<User> getAllUsers();
 
     /**
      * Find a user by ID or return null
      * @param userId
-     * @return
+     * @return the found user or null if not found
      */
     User findUser(Integer userId);
 
+
+    /**
+     * Find a user by username and password
+     * @param username username
+     * @param password password
+     * @return the found user or null if not found
+     */
+	User findUser(String username, String password);
+	
+    /**
+     * Find a user by username
+     * @param username username
+     * @return the found user or null if not found
+     */
+	User findUser(String username);
+    
     /**
      * Save a user
      * @param user
@@ -38,11 +54,4 @@ public interface UserService {
      */
     void deleteAll();
 
-    /**
-     * Find a user by username and password
-     * @param username username
-     * @param password password
-     * @return the found user or null if not found
-     */
-	User findUser(String username, String password);
 }

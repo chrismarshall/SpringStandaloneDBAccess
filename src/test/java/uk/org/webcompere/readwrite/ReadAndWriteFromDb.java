@@ -55,6 +55,16 @@ public class ReadAndWriteFromDb {
 	}
 	
 	@Test
+	public void findUserByUsername() {
+		// demonstrate how easy it is to do a query
+		User newUser = createAndSaveUser();
+		
+		assertNull(userService.findUser("BOB"));
+		assertThat(userService.findUser(USERNAME), is(newUser));
+		
+	}
+	
+	@Test
 	public void findUserByUsernameAndPassword() {
 		// demonstrate how easy it is to do a query
 		User newUser = createAndSaveUser();
