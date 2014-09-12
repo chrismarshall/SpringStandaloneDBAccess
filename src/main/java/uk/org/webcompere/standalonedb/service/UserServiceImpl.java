@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import uk.org.webcompere.standalonedb.dao.UserDao;
 import uk.org.webcompere.standalonedb.model.User;
+import uk.org.webcompere.standalonedb.repository.UserDao;
 
 import java.util.List;
 
@@ -27,20 +27,20 @@ public class UserServiceImpl implements UserService {
     @Override
 	@Transactional(readOnly = true)
     public User findUser(Integer userId) {
-        return userDao.find(userId);
+        return userDao.findOne(userId);
     }
 
 
 	@Override
 	@Transactional(readOnly = true)
 	public User findUser(String username, String password) {
-		return userDao.findByLoginCredentials(username, password);
+		return userDao.findByUsernameAndPassword(username, password);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public User findUser(String username) {
-		return userDao.findByUserName(username);
+		return userDao.findByUsername(username);
 	}
     
     @Override
@@ -52,14 +52,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void delete(Integer userId) {
-        userDao.removeById(userId);
+        userDao.delete(userId);
     }
 
 	@Override
 	@Transactional
 	public void deleteAll() {
 		for(User user:userDao.findAll()) {
-			userDao.remove(user);
+			userDao.delete(user);
 		}
 		
 	}
