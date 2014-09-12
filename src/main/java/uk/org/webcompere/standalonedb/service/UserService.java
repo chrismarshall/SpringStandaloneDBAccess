@@ -37,4 +37,12 @@ public interface UserService {
      * Delete all users
      */
     void deleteAll();
+
+    /**
+     * Find a user by username and password
+     * @param username username
+     * @param password password
+     * @return the found user or null if not found
+     */
+	User findUser(String username, String password);
 }

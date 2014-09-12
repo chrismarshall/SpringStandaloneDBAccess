@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+	@Transactional(readOnly = true)
     public User findUser(Integer userId) {
         return userDao.find(userId);
     }
@@ -49,5 +49,11 @@ public class UserServiceImpl implements UserService {
 			userDao.remove(user);
 		}
 		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public User findUser(String username, String password) {
+		return userDao.findByLoginCredentials(username, password);
 	}
 }

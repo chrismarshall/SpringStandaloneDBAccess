@@ -28,7 +28,9 @@ import uk.org.webcompere.standalonedb.service.UserService;
  * - What boilerplate do you need to have Spring and Hibernate running together
  */
 public class ReadAndWriteFromDb {
-
+	private static final String USERNAME="username1";
+	private static final String PASSWORD="p455w0rd";
+	
 	private UserService userService;
 	
 	@Before
@@ -51,6 +53,16 @@ public class ReadAndWriteFromDb {
 	public void cannotFindNonExistentUser() {
 		assertNull(userService.findUser(12345));
 	}
+	
+	@Test
+	public void findUserByUsernameAndPassword() {
+		// demonstrate how easy it is to do a query
+		User newUser = createAndSaveUser();
+		
+		assertNull(userService.findUser(USERNAME, "wrong password"));
+		assertThat(userService.findUser(USERNAME, PASSWORD), is(newUser));
+		
+	}
 
 	private User loadUser(User newUser) {
 		Integer id = newUser.getId();
@@ -62,6 +74,8 @@ public class ReadAndWriteFromDb {
 	private User createAndSaveUser() {
 		User newUser = new User();
 		newUser.setFirstName("My name");
+		newUser.setUsername(USERNAME);
+		newUser.setPassword(PASSWORD);
 		
 		userService.save(newUser);
 		return newUser;
