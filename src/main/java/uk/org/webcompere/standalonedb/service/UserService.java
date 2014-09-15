@@ -29,14 +29,21 @@ public interface UserService {
      * @return the found user or null if not found
      */
 	User findUser(String username, String password);
-	
+
     /**
      * Find a user by username
      * @param username username
      * @return the found user or null if not found
      */
 	User findUser(String username);
-    
+
+	/**
+     * Find a user by username, using Hibernate based DAOs rather than JPA.
+     * @param username username
+     * @return the found user or null if not found
+     */
+	User findUserHibernate(String username);
+
     /**
      * Save a user
      * @param user
@@ -48,7 +55,7 @@ public interface UserService {
      * @param userId id to delete
      */
     void delete(Integer userId);
-    
+
     /**
      * Delete all users
      */
