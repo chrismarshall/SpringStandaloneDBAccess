@@ -74,6 +74,16 @@ public class ReadAndWriteFromDb {
 		
 	}
 
+	@Test
+	public void canUseHibernateToo() {
+		User newUser = createAndSaveUser();
+
+		// Can find the user using JPA
+		assertThat(userService.findUser(USERNAME), is(newUser));
+		// Can also find the user using Hibernate
+		assertThat(userService.findUserHibernate(USERNAME), is(newUser));
+	}
+
 	private User loadUser(User newUser) {
 		Integer id = newUser.getId();
 		
